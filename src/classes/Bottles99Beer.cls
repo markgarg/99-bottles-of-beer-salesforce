@@ -9,6 +9,14 @@ public with sharing class Bottles99Beer {
 
 	public Bottles99Beer() {}
 
+	public static String getSong(){
+		String song = '';
+		for(Integer i = 99; i >= 0; i--){
+			song += getVerse(i);
+		}
+		return song;
+	}
+
 	public static String getVerse(Integer count){
 		String firstLineFirstSentenceReplacement = getBottlesText(count, true);
 		String firstLine = FIRST_LINE_FIRST_SENTENCE.replaceFirst('(COUNT_BOTTLES)', String.valueOf(firstLineFirstSentenceReplacement));
