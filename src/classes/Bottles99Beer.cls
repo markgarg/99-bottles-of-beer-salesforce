@@ -6,12 +6,12 @@ public with sharing class Bottles99Beer {
 
 	public Bottles99Beer() {}
 
-	public Static String getFirstVerse(){
-		String firstVerse = MULTIPLE_BOTTLES_VERSE;
-		firstVerse = firstVerse.replaceAll('(COUNT_BOTTLES)', '99');
-		firstVerse = firstVerse.replaceAll('(COUNT_LESS_1)', '98');
+	public Static String getVerse(Integer count){
+		String verse = MULTIPLE_BOTTLES_VERSE;
+		verse = verse.replaceAll('(COUNT_BOTTLES)', String.valueOf(count));
+		verse = verse.replaceAll('(COUNT_LESS_1)', String.valueOf(count - 1));
 
-		return firstVerse;
+		return verse;
 	}
 
 }
