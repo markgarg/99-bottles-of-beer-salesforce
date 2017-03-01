@@ -1,0 +1,1 @@
+A [problem](https://www.sandimetz.com/99bottles/sample#appendix-exercise) to solve from Sandi Metz's ["99 Bottles of OOP"](https://www.sandimetz.com/99bottles) book.
