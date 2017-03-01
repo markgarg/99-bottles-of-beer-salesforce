@@ -32,4 +32,12 @@ public with sharing class Bottles99BeerTest {
 		String verse = Bottles99Beer.getVerse(1);
 		System.assertEquals(expectedVerse, verse);
 	}
+
+	@isTest
+	static void testVerseForNoBottles(){
+		String expectedVerse = 'No more bottles of beer on the wall, no more bottles of beer.\n'
+								+ 'Go to the store and buy some more, 99 bottles of beer on the wall.\n';
+		String verse = Bottles99Beer.getVerse(0);
+		System.assertEquals(expectedVerse, verse);
+	}
 }
