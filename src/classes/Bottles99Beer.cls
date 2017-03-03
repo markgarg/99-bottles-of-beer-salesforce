@@ -1,69 +1,42 @@
 public with sharing class Bottles99Beer {
 
-	public static String FIRST_LINE_FIRST_SENTENCE = 'COUNT_BOTTLES of beer on the wall, ';
-	public static String FIRST_LINE_SECOND_SENTENCE = 'COUNT_BOTTLES of beer.\n';
-	public static final String TAKE_ONE_DOWN_SENTENCE = 'Take one down and pass it around, ';
-	public static final String TAKE_IT_DOWN_SENTENCE = 'Take it down and pass it around, ';
-	public static final String GO_TO_THE_STORE_SENTENCE = 'Go to the store and buy some more, ';
-	public static String ENDING_SENTENCE = 'COUNT_BOTTLES of beer on the wall.\n';
-
-	public Bottles99Beer() {}
-
 	public static String getSong(){
-		String song = '';
-		for(Integer i = 99; i >= 0; i--){
-			song += getVerse(i);
-		}
+		String song = getVerses(99, 0);
 		return song;
 	}
 
-	public static String getVerse(Integer count){
-		String firstLineFirstSentenceReplacement = getBottlesText(count, true);
-		String firstLine = FIRST_LINE_FIRST_SENTENCE.replaceFirst('(COUNT_BOTTLES)', String.valueOf(firstLineFirstSentenceReplacement));
-
-		String firstLineSecondSentenceReplacement = getBottlesText(count, false);
-		firstLine += FIRST_LINE_SECOND_SENTENCE.replaceFirst('(COUNT_BOTTLES)', String.valueOf(firstLineSecondSentenceReplacement));
-
-		String midSentence = getMidSentence(count);
-
-		String secondLineEnding;
-		if(count > 0){
-			String secondLineReplacement = getBottlesText(count - 1, false);
-			secondLineEnding = ENDING_SENTENCE.replaceFirst('(COUNT_BOTTLES)', secondLineReplacement);
-		} else {
-			String secondLineReplacement = getBottlesText(99, false);
-			secondLineEnding = ENDING_SENTENCE.replaceFirst('(COUNT_BOTTLES)', secondLineReplacement);
+	public static String getVerses(Integer bottlesFrom, Integer bottlesTo){
+		List<String> verses = new List<String>();
+		for(Integer i = 99; i >= 0; i--){
+			verses.add(getVerse(i));
 		}
-		String verse = firstLine + midSentence + secondLineEnding;
+		return String.join(verses, '\n');
+	}
+
+	public static String getVerse(Integer count){
+		String verse;
+		if(count > 2){
+			verse = count + ' bottles of beer on the wall, ' +
+					count + ' bottles of beer.\n' +
+					'Take one down and pass it around, ' +
+					(count - 1) + ' bottles of beer on the wall.';
+		} else if(count == 2){
+			verse = '2 bottles of beer on the wall, ' +
+					'2 bottles of beer.\n' +
+					'Take one down and pass it around, ' +
+					'1 bottle of beer on the wall.';
+		} else if(count == 1){
+			verse = '1 bottle of beer on the wall, ' +
+					'1 bottle of beer.\n' +
+					'Take it down and pass it around, ' +
+					'no more bottles of beer on the wall.';
+		} else {
+			verse = 'No more bottles of beer on the wall, ' +
+					'no more bottles of beer.\n' +
+					'Go to the store and buy some more, ' +
+					'99 bottles of beer on the wall.';
+		}
 
 		return verse;
-	}
-
-	public static String getBottlesText(Integer count, Boolean firstWord){
-		String text;
-		if(count > 1){
-			text = count + ' bottles';
-		} else if(count == 1){
-			text = count + ' bottle';
-		} else if(count == 0){
-			if(firstWord){
-				text = 'No';
-			} else {
-				text = 'no';
-			}
-			text += ' more bottles';
-		}
-
-		return text;
-	}
-
-	public static String getMidSentence(Integer count){
-		String text = TAKE_ONE_DOWN_SENTENCE;
-		if(count == 1)
-			text = TAKE_IT_DOWN_SENTENCE;
-		else if(count == 0)
-			text = GO_TO_THE_STORE_SENTENCE;
-
-		return text;
 	}
 }
